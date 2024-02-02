@@ -1,30 +1,52 @@
-# React + TypeScript + Vite
+# VE - Request Credits
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Summary
+* [Description](#description)
+* [Components](#components)
+* [Technologies](#technologies)
+* [Environment](#environment)
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project is a web application that allows users to apply for credit and manage requests. It consists of two main components: 
+* `Home` for submitting credit applications
+* `Requests` for viewing and managing these applications.
 
-## Expanding the ESLint configuration
+## Components
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### `Home`
 
-- Configure the top-level `parserOptions` property like this:
+This component allows users to submit a new credit application. It includes form inputs for personal information, document details, and address. Users can also upload a profile picture.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+#### Features:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- **Form Submission**: Users can fill out a form with their personal details, contact information, and income.
+- **File Upload**: Users can upload a document photo. The file is uploaded to AWS S3, and the URL is included in the form submission.
+- **Validation**: The form fields are validated to ensure that all required information is entered correctly.
+- **Responsive Design**: The layout adjusts for different screen sizes, ensuring a consistent user experience across devices.
+
+### `Requests`
+
+This component displays a list of all credit applications. Users can view detailed information about each request, including the applicant's name, contact details, and the uploaded document photo.
+
+#### Features:
+
+- **Data Fetching**: Retrieves a list of users/applications from the backend.
+- **Pagination**: Supports pagination to view a subset of requests at a time.
+- **Detailed View**: Users can select a request to view detailed information, including personal and contact details, income level, and the document photo.
+- **Responsive Table**: The table adjusts for different screen sizes, ensuring a consistent user experience across devices.
+- **S3 URL Encoding**: Encodes and reconstructs S3 URLs to handle special characters in file names.
+
+## Technologies:
+
+- **axios**: For making HTTP requests.
+- **antd**: UI library for table, badge, and other UI components.
+- **react-router-dom**: For navigation between different pages.
+- **Custom Hooks**: `useGetUsers` for fetching the list of users/applications, and `useWindowSize` for responsive design.
+
+## Environment
+
+| Variable              |
+|-----------------------|
+| VITE_API_URL          |
+| VITE_BUCKET           |
